@@ -1,0 +1,80 @@
+Enter file contents hereimport java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Solution {
+
+    public static void main(String[] args) 
+    {
+        //define scanner, p, n, ar, finalstring
+        Scanner input = new Scanner(System.in);
+        int n;
+        StringBuffer finalString = new StringBuffer();
+        
+        //read in n
+        n = input.nextInt();
+        
+        Integer[] nums = new Integer[n];
+        
+        //read in ar
+        for (int i = 0; i < n; i++)
+        {
+            nums[i] = input.nextInt();
+        }
+        
+        //quickSort on ar
+        finalString = quickSort(nums);
+        
+        //printfinalstring
+        System.out.print(finalString);
+        
+    }
+    
+    static StringBuffer quickSort(Integer[] nums)
+    {
+        //declare p;
+        StringBuffer finalString = new StringBuffer();
+        StringBuffer temp = new StringBuffer("");
+        int p;
+        ArrayList<Integer> left = new ArrayList<>();
+        ArrayList<Integer> right = new ArrayList<>();
+        
+        //return tostring(ar[1]) if array is size 1 -> it's already sorted
+        if (nums.length == 1)
+        {
+            
+            //System.out.println("returning " + nums[0]);
+            //this is really dumb and there's def a better way to return a stringbuffer. oh well. 
+            //It's a less elegant solution for an uncivilized programmer
+            return temp.append(Integer.toString(nums[0]));
+        }
+        
+        //get p
+        p = nums[0];
+                
+        //iterate AR, 
+        for (int i = 1; i < nums.length; i++)
+        {
+        //if ar < p add to left
+            if (nums[i] < p)
+            {
+                left.add(nums[i]);
+            }
+        //if ar > p add to right
+            if (nums[i] > p)
+            {
+                right.add(nums[i]);
+            }
+        }
+        //append p to left
+        left.add(p);
+        
+        Integer[] leftInt = left.toArray(new Integer[left.size()]);
+        Integer[] rightInt = right.toArray(new Integer[right.size()]);
+        
+        //return string of recursively called quicksort
+        finalString.append(quickSort(leftInt).append(quickSort(rightInt)));
+        //System.out.println("RETURNING!" + finalString);
+        return finalString;
+    }
+}
